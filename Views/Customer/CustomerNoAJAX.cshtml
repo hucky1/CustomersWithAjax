@@ -1,0 +1,32 @@
+﻿@using CustomersWithAjax.Models
+@model Tuple<List<CustomerModel>, CustomerModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("OnSelectCustomer","Customer"))
+{
+    @Html.AntiForgeryToken()
+    var selected = false;
+
+    foreach (var customer in Model.Item1)
+    {
+        if (Model.Item2 == customer)
+        {
+            selected = true;
+        }
+        else
+        {
+            selected = false;
+        }
+        @Html.RadioButton("CustomerNumber", customer.Id, selected)
+        @Html.Label(customer.Name)
+        <br />
+
+    }
+    <input type="submit" id="SubmitButton" value="Display Datails"/>
+    <div id="customerInfo">
+        @Html.Partial("~/Views/Shared/_CustomerDetails.cshtml",Model.Item2) 
+    </div>
+}

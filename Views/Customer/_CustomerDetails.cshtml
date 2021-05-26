@@ -1,0 +1,12 @@
+﻿@model CustomersWithAjax.Models.CustomerModel
+
+<div>
+    <h3>Customer datails</h3>
+    @Html.DisplayNameFor(m => Model.Name):@Html.DisplayFor(m => Model.Name)
+    <br>
+    @Html.DisplayNameFor(m => Model.Age):@Html.DisplayFor(m => Model.Age)
+    <br>
+
+    <p>Updated at @DateTime.Now</p>
+</div>
+

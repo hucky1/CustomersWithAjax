@@ -1,0 +1,39 @@
+﻿@using CustomersWithAjax.Models
+@model Tuple<List<CustomerModel>, CustomerModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "customerInfo"
+    };
+}
+
+@using (Ajax.BeginForm("OnSelectCustomer", "Customer", ajaxOptions, new { id = "customerForm" }))
+{
+    @Html.AntiForgeryToken()
+    var selected = false;
+
+    foreach (var customer in Model.Item1)
+    {
+        if (Model.Item2 == customer)
+        {
+            selected = true;
+        }
+        else
+        {
+            selected = false;
+        }
+        @Html.RadioButton("CustomerNumber", customer.Id, selected, new { onchange = "$('#customerForm').trigger('submit')" })
+        @Html.Label(customer.Name)
+        <br />
+
+    }
+    <!--<input type="submit" id="   " value="Display Datails" />-->
+
+}
+<div id="customerInfo">
+    @Html.Partial("_CustomerDetails", Model.Item2)
+</div>
